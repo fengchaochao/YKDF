@@ -1,0 +1,40 @@
+1.如果使用SDK中的默认HttpClient报如下错误确又不能升级JDK的版本的话可以更换为apache httpclient发请求：
+（此错误的FAQ地址：https://open.unionpay.com/ajweb/help/faq/list?id=98&level=0&from=0&keyword=Unconnected%20sockets%20not%20implemented）
+[13:09:13|ERROR|(SDK_ERR_LOG)]=[Unconnected sockets not implemented]
+java.net.SocketException: Unconnected sockets not implemented
+	at javax.net.SocketFactory.createSocket(SocketFactory.java:97)
+	at sun.net.www.protocol.https.HttpsClient.createSocket(HttpsClient.java:360)
+
+2.使用apache httpclient的方法：
+1）将commons-httpclient-3.1.jar,commons-logging-1.1.1.jar引入到classpath中
+2）将ApacheHttpClient.java，MySSLSocketFactory.java 放置到com.unionpay.acp.sdk包中，并在AcpService.java中增加以下方法用来调用：
+/**
+ * apachePost
+ * @param reqData
+ * @param reqUrl
+ * @param encoding
+ * @return
+ */
+public static Map<String,String> apachePost(
+		Map<String, String> reqData,String reqUrl,String encoding) {
+	Map<String, String> rspData = new HashMap<String,String>();
+	LogUtil.writeLog("请求银联地址:" + reqUrl);
+	//发送后台请求数据
+	ApacheHttpClient hc = new ApacheHttpClient(reqUrl, 30000, 30000);
+	try {
+		int status = hc.send(reqData, encoding);
+		if (200 == status) {
+			String resultString = hc.getResult();
+			if (null != resultString && !"".equals(resultString)) {
+				// 将返回结果转换为map
+				Map<String,String> tmpRspData  = SDKUtil.convertResultStringToMap(resultString);
+				rspData.putAll(tmpRspData);
+			}
+		}else{
+			LogUtil.writeLog("返回http状态码["+status+"]，请检查请求报文或者请求地址是否正确");
+		}
+	} catch (Exception e) {
+		LogUtil.writeErrorLog(e.getMessage(), e);
+	}
+	return rspData;
+}

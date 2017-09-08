@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ACPSample_DaiFu</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+   <filter>
+    	<filter-name>CharsetEncodingFilter</filter-name>
+    	<filter-class>web.CharsetEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>CharsetEncodingFilter</filter-name>
+    	<url-pattern>*.jsp</url-pattern>
+    	<url-pattern>*</url-pattern>
+    </filter-mapping>
+  
+  <servlet>
+    <servlet-name>autoLoadServlet</servlet-name>
+    <servlet-class>web.AutoLoadServlet</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  
+   <servlet-mapping>
+    <servlet-name>autoLoadServlet</servlet-name>
+    <url-pattern>/autoLoadServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- 前台通知 处理类 此类需要映射一个外网地址并将该地址上送到 请求报文中的frontUrl中-->
+    <servlet>
+    <servlet-name>frontRcvResponse</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.FrontRcvResponse</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>frontRcvResponse</servlet-name>
+    <url-pattern>/frontRcvResponse</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 后台通知 处理类 此类需要映射一个外网地址并将该地址上送到 请求报文中的backUrl中-->
+    <servlet>
+    <servlet-name>backRcvResponse</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.BackRcvResponse</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>backRcvResponse</servlet-name>
+    <url-pattern>/backRcvResponse</url-pattern>
+  </servlet-mapping>
+  
+  
+ <!--后台 代付 -->
+ <servlet>
+    <servlet-name>form10_6_2_DF</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_6_2_DF</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_6_2_DF</servlet-name>
+    <url-pattern>/form10_6_2_DF</url-pattern>
+  </servlet-mapping>
+  
+   <!--后台 代付 -->
+ <servlet>
+    <servlet-name>form10_6_4_RealAuth_Back</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_6_4_RealAuth_Back</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_6_4_RealAuth_Back</servlet-name>
+    <url-pattern>/form10_6_4_RealAuth_Back</url-pattern>
+  </servlet-mapping>
+  
+   <!--后台 代付 -->
+ <servlet>
+    <servlet-name>form10_6_4_RealAuth_Front</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_6_4_RealAuth_Front</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_6_4_RealAuth_Front</servlet-name>
+    <url-pattern>/form10_6_4_RealAuth_Front</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!--后台  交易状态查询 -->
+  <servlet>
+    <servlet-name>form10_6_3_Query</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_6_3_Query</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_6_3_Query</servlet-name>
+    <url-pattern>/form10_6_3_Query</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 后台 批量代付 -->
+  <servlet>
+    <servlet-name>form10_6_5_BatchDF</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_6_5_BatchDF</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_6_5_BatchDF</servlet-name>
+    <url-pattern>/form10_6_5_BatchDF</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 后台 批量交易查询-->
+  <servlet>
+    <servlet-name>form10_6_6_BatchQuery</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_6_6_BatchQuery</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_6_6_BatchQuery</servlet-name>
+    <url-pattern>/form10_6_6_BatchQuery</url-pattern>
+  </servlet-mapping>
+  
+  
+   <!-- 后台 文件传输类交易-->
+  <servlet>
+    <servlet-name>form10_7_FileTransfer</servlet-name>
+    <servlet-class>com.unionpay.acp.demo.Form10_7_FileTransfer</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>form10_7_FileTransfer</servlet-name>
+    <url-pattern>/form10_7_FileTransfer</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>
